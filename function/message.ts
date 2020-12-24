@@ -45,6 +45,7 @@ export function analyseMessage(message: any,text: string){
             break
     }
 }
+//群发接口
 async function qunfa(message: any) {
     var friends = await bot.Contact.findAll()
     const contactCard = bot.Contact.load('wxid_gb6oix6ix36g12')
@@ -68,6 +69,7 @@ async function qunfa(message: any) {
             }
     }
 }
+//获取好友列表接口
 async function haoyou(message: any) {
     console.log("haoyou")
     var friends = await bot.Contact.findAll()

@@ -8,37 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.compareMoney = exports.returnTaoKouLing = exports.analyseTaoKouLing = exports.getChaxun = exports.getTiXian = exports.getHelp = exports.analyseMessage = exports.isMyself = exports.isNewapp = exports.isRoom = void 0;
-var bot_1 = require("../bot");
-var login_1 = require("./login");
+const bot_1 = require("../bot");
+const login_1 = require("./login");
 function isRoom(room) {
     if (room) {
         console.log("isRoom");
@@ -86,67 +59,44 @@ function analyseMessage(message, text) {
     }
 }
 exports.analyseMessage = analyseMessage;
+//群发接口
 function qunfa(message) {
-    return __awaiter(this, void 0, void 0, function () {
-        var friends, contactCard, i;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, bot_1.bot.Contact.findAll()];
-                case 1:
-                    friends = _a.sent();
-                    contactCard = bot_1.bot.Contact.load('wxid_gb6oix6ix36g12');
-                    i = 0;
-                    _a.label = 2;
-                case 2:
-                    if (!(i < friends.length)) return [3 /*break*/, 7];
-                    if (!friends[i].friend()) return [3 /*break*/, 6];
-                    if (!(friends[i].id === 'wxid_gdl4wsmp2oxr22' ||
-                        friends[i].id === 'wxid_ceekm1yas3vj22'
-                        || friends[i].id === 'wxid_w9uoh4zcwn6612'
-                        || friends[i].id === 'liuchang1012'
-                        || friends[i].id === 'wxid_4078wzm2qy6v22'
-                        || friends[i].id === 'wxid_9onmtj5xxizq12'
-                        || friends[i].id === 'wxid_narqbikjhtc812'
-                        || friends[i].id === 'wxid_lx6qsxqhqfnr22')) return [3 /*break*/, 6];
-                    return [4 /*yield*/, friends[i].say("分享一个返利机器人")];
-                case 3:
-                    _a.sent();
-                    return [4 /*yield*/, friends[i].say(contactCard)];
-                case 4:
-                    _a.sent();
-                    return [4 /*yield*/, friends[i].say("群发，勿回，谢谢😬")];
-                case 5:
-                    _a.sent();
-                    _a.label = 6;
-                case 6:
-                    i++;
-                    return [3 /*break*/, 2];
-                case 7: return [2 /*return*/];
-            }
-        });
+    return __awaiter(this, void 0, void 0, function* () {
+        var friends = yield bot_1.bot.Contact.findAll();
+        const contactCard = bot_1.bot.Contact.load('wxid_gb6oix6ix36g12');
+        for (var i = 0; i < friends.length; i++) {
+            if (friends[i].friend())
+                // if (friends[i].id != 'fmessage'
+                //     && friends[i].id != 'wxid_ps8vz8gkkwci22'
+                // &&friends[i].id!='wxid_5j7y7ph9j46322') {
+                if (friends[i].id === 'wxid_gdl4wsmp2oxr22' ||
+                    friends[i].id === 'wxid_ceekm1yas3vj22'
+                    || friends[i].id === 'wxid_w9uoh4zcwn6612'
+                    || friends[i].id === 'liuchang1012'
+                    || friends[i].id === 'wxid_4078wzm2qy6v22'
+                    || friends[i].id === 'wxid_9onmtj5xxizq12'
+                    || friends[i].id === 'wxid_narqbikjhtc812'
+                    || friends[i].id === 'wxid_lx6qsxqhqfnr22') {
+                    yield friends[i].say("分享一个返利机器人");
+                    yield friends[i].say(contactCard);
+                    yield friends[i].say("群发，勿回，谢谢😬");
+                }
+        }
     });
 }
+//获取好友列表接口
 function haoyou(message) {
-    return __awaiter(this, void 0, void 0, function () {
-        var friends, i;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    console.log("haoyou");
-                    return [4 /*yield*/, bot_1.bot.Contact.findAll()];
-                case 1:
-                    friends = _a.sent();
-                    for (i = 0; i < friends.length; i++) {
-                        if (friends[i].friend())
-                            if (friends[i].id != 'fmessage'
-                                && friends[i].id != 'wxid_ps8vz8gkkwci22') {
-                                // @ts-ignore
-                                console.log("name:" + friends[i].payload.name + "/alias:" + friends[i].payload.alias + "/id:" + friends[i].id);
-                            }
-                    }
-                    return [2 /*return*/];
-            }
-        });
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log("haoyou");
+        var friends = yield bot_1.bot.Contact.findAll();
+        for (var i = 0; i < friends.length; i++) {
+            if (friends[i].friend())
+                if (friends[i].id != 'fmessage'
+                    && friends[i].id != 'wxid_ps8vz8gkkwci22') {
+                    // @ts-ignore
+                    console.log("name:" + friends[i].payload.name + "/alias:" + friends[i].payload.alias + "/id:" + friends[i].id);
+                }
+        }
     });
 }
 function getHelp(message) {
